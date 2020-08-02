@@ -26,7 +26,9 @@
               <a class="nav-link" href="#">Logout</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Midstackdev</a>
+              <a class="nav-link" href="#">
+                {{ $store.state.username  ?  $store.state.username : 'User'}}
+              </a>
             </li>
           </ul>
         </div>

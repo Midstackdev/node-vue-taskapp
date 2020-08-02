@@ -9,6 +9,8 @@ import TaskEdit from '../views/tasks/TasksEdit.vue'
 
 Vue.use(VueRouter)
 
+  const isLoggedIn = false
+
   const routes = [
   {
     path: '/',
@@ -26,27 +28,57 @@ Vue.use(VueRouter)
   {
     path: '/tasks',
     name: 'tasks-all',
-    component: TaskAll
+    component: TaskAll,
+    beforeEnter: (to, from, next) => {
+      if(isLoggedIn) {
+        next()
+      } else
+        next('/login')
+    }
   },
   {
     path: '/tasks/new',
     name: 'tasks-create',
-    component: TaskCreate
+    component: TaskCreate,
+    beforeEnter: (to, from, next) => {
+      if(isLoggedIn) {
+        next()
+      } else
+        next('/login')
+    }
   },
   {
     path: '/tasks/:id',
     name: 'tasks-edit',
-    component: TaskEdit
+    component: TaskEdit,
+    beforeEnter: (to, from, next) => {
+      if(isLoggedIn) {
+        next()
+      } else
+        next('/login')
+    }
   },
   {
     path: '/register',
     name: 'register',
-    component: Register
+    component: Register,
+    beforeEnter: (to, from, next) => {
+      if(!isLoggedIn) {
+        next()
+      } else
+        next('/')
+    }
   },
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: Login,
+    beforeEnter: (to, from, next) => {
+      if(!isLoggedIn) {
+        next()
+      } else
+        next('/')
+    }
   },
   {
     path: '*',
@@ -60,5 +92,9 @@ const router = new VueRouter({
   routes,
   linkActiveClass: 'active'
 })
+
+// routes.beforeEach((to, from, next) => {
+
+// })
 
 export default router
