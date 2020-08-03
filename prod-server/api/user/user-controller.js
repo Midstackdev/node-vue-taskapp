@@ -5,5 +5,5 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.index = index;
 function index(req, res) {
-    return res.json({ message: 'Hello world' });
+    return res.staus(200).json({ message: 'Hello world' });
 }
