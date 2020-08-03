@@ -21,6 +21,12 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _authServices = require('../../services/auth-services');
+
+var auth = _interopRequireWildcard(_authServices);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function index(req, res) {
@@ -39,7 +45,7 @@ function index(req, res) {
 
 function create(req, res) {
     // Create a tasks
-    var id = 10;
+    var id = auth.getUserId();
     _user2.default.findById(id).then(function (user) {
 
         if (!user) {
@@ -62,7 +68,7 @@ function create(req, res) {
 
 function update(req, res) {
     // Update a tasks
-    var id = 10;
+    var id = auth.getUserId();
     _user2.default.findById(id).then(function (user) {
 
         if (!user) {
@@ -95,7 +101,7 @@ function update(req, res) {
 
 function remove(req, res) {
     // Delete a tasks
-    var id = 5;
+    var id = auth.getUserId();
     _task2.default.findById(req.params.id).then(function (task) {
         if (!task) {
             return res.status(500).json({ errors: 'No task was found.' });

@@ -11,6 +11,8 @@ var _user = require('../../models/user');
 
 var _user2 = _interopRequireDefault(_user);
 
+var _authServices = require('../../services/auth-services');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function index(req, res) {
@@ -30,8 +32,11 @@ function index(req, res) {
             return res.status(401).json({ errors: { message: 'Password invalid.' } });
         }
 
-        return res.status(200).json({ success: true, data: user });
+        var token = (0, _authServices.generateJWT)(user);
+
+        return res.status(200).json({ success: true, data: user, token: token });
     }).catch(function (error) {
+        console.log(error);
         return res.status(500).json({
             errors: {
                 message: 'Failed to login user.',

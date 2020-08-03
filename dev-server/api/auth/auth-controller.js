@@ -1,5 +1,6 @@
 import { StringUtil } from '../../utilities/string-util'
 import User from '../../models/user'
+import { generateJWT } from '../../services/auth-services'
 
 export function index(req, res) {
     const validation = validateIndex(req.body)
@@ -18,9 +19,12 @@ export function index(req, res) {
             return res.status(401).json({ errors: {message: 'Password invalid.'}})
         }
 
-        return res.status(200).json({ success: true, data: user })
+        const token = generateJWT(user)
+
+        return res.status(200).json({ success: true, data: user, token })
     })
     .catch(error => {
+        console.log(error)
         return res.status(500).json({ 
             errors: {
                 message: 'Failed to login user.',

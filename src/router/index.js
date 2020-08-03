@@ -6,10 +6,11 @@ import Register from '../views/authentication/Register.vue'
 import TaskAll from '../views/tasks/TasksAll.vue'
 import TaskCreate from '../views/tasks/TasksCreate.vue'
 import TaskEdit from '../views/tasks/TasksEdit.vue'
+import * as auth from '../services/AuthService'
 
 Vue.use(VueRouter)
 
-  const isLoggedIn = false
+  const isLoggedIn = auth.isLoggedIn()
 
   const routes = [
   {

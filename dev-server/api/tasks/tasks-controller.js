@@ -1,6 +1,7 @@
 import User from '../../models/user'
 import Task from '../../models/task'
 import moment from 'moment'
+import * as auth from '../../services/auth-services'
 
 export function index(req, res) {
     // FInd all tasks
@@ -20,7 +21,7 @@ export function index(req, res) {
 
 export function create(req, res) {
     // Create a tasks
-    const id = 10
+    const id = auth.getUserId()
     User.findById(id).then(user => {
 
         if(!user) {
@@ -43,7 +44,7 @@ export function create(req, res) {
 
 export function update(req, res) {
     // Update a tasks
-    const id = 10;
+    const id = auth.getUserId();
     User.findById(id).then(user => {
 
         if(!user) {
@@ -77,7 +78,7 @@ export function update(req, res) {
 
 export function remove(req, res) {
     // Delete a tasks
-    const id = 5
+    const id = auth.getUserId()
     Task.findById(req.params.id).then((task) => {
         if(!task) {
             return res.status(500).json({ errors: 'No task was found.'})
