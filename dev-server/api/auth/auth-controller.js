@@ -1,4 +1,5 @@
 import { StringUtil } from '../../utilities/string-util'
+import User from '../../models/user'
 
 export function index(req, res) {
     const validation = validateIndex(req.body)
@@ -7,12 +8,27 @@ export function index(req, res) {
         return res.status(400).json({ message: validation.message })
     }
 
-    const user = {
-        username: req.body.username.toLowerCase(),
-        password: req.body.password
-    }
-    console.log(user)
-    return res.status(204).json()
+    User.findOne({ username: req.body.username.toLowerCase() }).then(user => {
+        if(!user) {
+            return res.status(401).json({ errors: 'No user was found.'})
+        }
+
+        const passwordMatch = User.passwordMatches(req.body.password, user.password)
+        if(!passwordMatch) {
+            return res.status(401).json({ errors: {message: 'Password invalid.'}})
+        }
+
+        return res.status(200).json({ success: true, data: user })
+    })
+    .catch(error => {
+        return res.status(500).json({ 
+            errors: {
+                message: 'Failed to login user.',
+                mongo: error
+            } 
+        })
+    })
+    
 }
 
 function validateIndex(body) {

@@ -14,7 +14,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function connectToDB() {
     _mongoose2.default.connect('' + process.env.DB_URL + process.env.DB_NAME, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useCreateIndex: true
     }).then(function () {
         console.log('DB Connected');
     }).catch(function (error) {

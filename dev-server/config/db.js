@@ -3,7 +3,8 @@ import mongoose from 'mongoose'
 export function connectToDB() {
     mongoose.connect(`${process.env.DB_URL}${process.env.DB_NAME}`, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useCreateIndex: true,
     })
     .then(() => {
         console.log('DB Connected')

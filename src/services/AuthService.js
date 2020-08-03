@@ -1,16 +1,22 @@
 import store from '../store'
+import { http } from './HttpService'
 
 export function isLoggedIn() {
     const token = localStorage.getItem('token')
     return token != null
 }
 
-export function login() {
-    const token  = {
-        username: 'Alfred'
-    }
+export function login(user) {
+    return http().post(`/auth`, user)
+    .then(res => {
+        if(res) {
+            const token  = {
+                token: 'my-token'
+            }
+            setToken(token)
+        }
+    })
 
-    setToken(token)
 }
 
 function setToken(token) {
@@ -24,4 +30,8 @@ export function getUsername() {
 
 export function getUserId() {
     return 1
+}
+
+export function registerUser(user) {
+    return http().post(`/register`, user)
 }
