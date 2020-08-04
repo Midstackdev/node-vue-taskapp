@@ -15,7 +15,8 @@ function connectToDB() {
     _mongoose2.default.connect('' + process.env.DB_URL + process.env.DB_NAME, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useCreateIndex: true
+        useCreateIndex: true,
+        useFindAndModify: false
     }).then(function () {
         console.log('DB Connected');
     }).catch(function (error) {

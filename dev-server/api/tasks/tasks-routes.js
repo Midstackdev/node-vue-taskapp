@@ -12,6 +12,6 @@ router.get('/task/:id', auth.requireLogin, controller.show)
 
 router.put('/task', auth.requireLogin, controller.update)
 
-router.delete('/task', auth.requireLogin, controller.remove)
+router.delete('/task/:id', auth.requireLogin, controller.remove)
 
 export default router

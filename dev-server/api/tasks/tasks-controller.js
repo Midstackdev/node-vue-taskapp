@@ -21,7 +21,7 @@ export function index(req, res) {
 
 export function create(req, res) {
     // Create a tasks
-    const id = auth.getUserId()
+    const id = auth.getUserId(req)
     User.findById(id).then(user => {
 
         if(!user) {
@@ -44,7 +44,7 @@ export function create(req, res) {
 
 export function update(req, res) {
     // Update a tasks
-    const id = auth.getUserId();
+    const id = auth.getUserId(req);
     User.findById(id).then(user => {
 
         if(!user) {
@@ -78,7 +78,7 @@ export function update(req, res) {
 
 export function remove(req, res) {
     // Delete a tasks
-    const id = auth.getUserId()
+    const id = auth.getUserId(req)
     Task.findById(req.params.id).then((task) => {
         if(!task) {
             return res.status(500).json({ errors: 'No task was found.'})

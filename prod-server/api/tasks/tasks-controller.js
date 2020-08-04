@@ -45,7 +45,7 @@ function index(req, res) {
 
 function create(req, res) {
     // Create a tasks
-    var id = auth.getUserId();
+    var id = auth.getUserId(req);
     _user2.default.findById(id).then(function (user) {
 
         if (!user) {
@@ -68,7 +68,7 @@ function create(req, res) {
 
 function update(req, res) {
     // Update a tasks
-    var id = auth.getUserId();
+    var id = auth.getUserId(req);
     _user2.default.findById(id).then(function (user) {
 
         if (!user) {
@@ -101,7 +101,7 @@ function update(req, res) {
 
 function remove(req, res) {
     // Delete a tasks
-    var id = auth.getUserId();
+    var id = auth.getUserId(req);
     _task2.default.findById(req.params.id).then(function (task) {
         if (!task) {
             return res.status(500).json({ errors: 'No task was found.' });

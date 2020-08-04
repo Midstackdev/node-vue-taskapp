@@ -6,7 +6,7 @@ export function http() {
     return axios.create({
         baseURL: store.state.apiUrl,
         headers: {
-            Authorization: auth.getToken()
+            Authorization: 'Bearer ' + auth.getToken()
         }
     })
 }
